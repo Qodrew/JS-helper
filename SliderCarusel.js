@@ -70,3 +70,39 @@ const slides = document.querySelectorAll('.offer__slide'),
             current.textContent = slideIndex;
         }
     });
+    // простой
+    // let countSlide = 1;
+    // showSlides(countSlide);
+    
+    // if (slides.length < 10) {
+    //     total.textContent = `0${slides.length}`;
+    // } else {
+    //     total.textContent = slides.length;
+    // }
+
+    // function showSlides(n) {
+    //     if (n < 1) {
+    //         countSlide = slides.length;
+    //     }
+    //     if (n > slides.length) {
+    //         countSlide = 1;
+    //     }
+    //     slides.forEach(item => item.style.display = 'none');
+    //     slides[countSlide - 1].style.display = 'block';
+    //     if (countSlide < 10) {
+    //         current.textContent = `0${countSlide}`;
+    //     } else {
+    //         current.textContent = countSlide;
+    //     }
+    // }
+    // function plusSlide(n) {
+    //     showSlides(countSlide += n);
+    // }
+    // prev.addEventListener('click', () => {
+    //     plusSlide(-1);
+    // })
+    // next.addEventListener('click', () => {
+    //     plusSlide(1);
+    // })
+    
+    // 86 slider (simple)
