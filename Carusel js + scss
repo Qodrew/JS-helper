@@ -1,0 +1,89 @@
+import { useState, useEffect, Children, cloneElement } from "react";
+import {FaChevronLeft, FaChevronRight} from "react-icons"
+
+import "./Carusel.scss"
+
+const PAGE_WIDTH = 450;
+
+const Carusel = ({children}) => {
+
+    const [pages, setPages] = useState([]);
+
+    const [offset, setOffset] = useState(0);
+    
+    useEffect(() => {
+        setPages(
+            Children.map(children, child => {
+                return cloneElement(child, {
+                    style: {
+                        height: '100%',
+                        minWidth: `${PAGE_WIDTH}px`,
+                        maxWidth: `${PAGE_WIDTH}px`,
+
+                    }
+                })
+            })
+        )
+    }, [])
+
+    const handleLeftArrowClick = () => {
+        setOffset((currentOffset) => {
+            const newOffset = currentOffset + PAGE_WIDTH;
+            return Math.min(newOffset, 0); // Валидацияю стоп при 0
+        })
+    }
+
+    const handleRightArrowClick = () => {
+        setOffset((currentOffset) => {
+
+            const maxOffset = -(PAGE_WIDTH * (pages.length - 1));
+
+            const newOffset = currentOffset - PAGE_WIDTH;
+            return Math.max(newOffset, maxOffset);
+        })
+    }
+
+
+    return (
+        <div className="main-container">
+            <FaChevronLeft className="arrow" onClick={handleLeftArrowClick}/>
+            <div className="window">
+                <div className="all-pages-container" style={{transform: `translateX(${offset})`}}>{pages}</div>
+            </div>
+            <FaChevronRight className="arrow" onClick={handleRightArrowClick}/>
+        </div>
+    );
+};
+
+export default Carusel;
+
+-------------scss--------------
+.main-container {
+    height: 150px;
+    width: 450px;
+
+    // для кнопок arrow
+    display: flex;
+    align-items: center;
+}
+.window{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.all-pages-container{
+    height: 100%;
+    display: flex;
+    // flex-direction: row;
+
+    // для анимации переключения слайдов
+    transition: translate;
+    transition-property: transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.arrow {
+    cursor: pointer;
+}
